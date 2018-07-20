@@ -1,7 +1,10 @@
 package com.practice.jpabasic.jpaRepository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -13,18 +16,28 @@ import com.practice.jpabasic.models.Person;
 public class PersonJpaRepository {
 
 	@PersistenceContext
-	EntityManager entity;
+	EntityManager entityManager;
 	
 	
 	public Person findById(int id) {
-		return entity.find(Person.class, id);
+		return entityManager.find(Person.class, id);
+	}
+	
+	public List<Person> findAll() {
+		 TypedQuery<Person> namedQuery =  entityManager.createNamedQuery("find_all_persons", Person.class);
+		 return namedQuery.getResultList();
+	}
+	
+	public void deleteById(int id) {
+		Person person =  findById(id);
+		entityManager.remove(person);
 	}
 	
 	public Person update(Person person) {
-		return entity.merge(person);
+		return entityManager.merge(person);
 	}
 		
 	public Person insert(Person person) {
-		return entity.merge(person);
+		return entityManager.merge(person);
 	}
 }

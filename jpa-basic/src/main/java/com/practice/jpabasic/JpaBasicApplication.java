@@ -32,13 +32,14 @@ public class JpaBasicApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		logger.info("User Id 10001 -> {}" ,  personJpaRepository.findById(10001));
 		logger.info("User Id 10002 -> {}" ,  personJpaRepository.findById(10002));
-		//logger.info(" Deleting 10002 ,Number of rows deleted -> {}" ,  personJdbcDao.deleteById(10002));
-		//logger.info("All users -> {}" ,  personJdbcDao.findAll());
+		logger.info(" Deleting 10002 ,Number of rows deleted ");
+		personJpaRepository.deleteById(10002);
+		logger.info("All users -> {}" ,  personJpaRepository.findAll());
 		logger.info("Inserting 10004 -> {}" , 
 				personJpaRepository.insert(new Person( "NoName", "Toronto", new Date())));
-	//    logger.info("All users -> {}" ,  personJpaRepository.findAll());
+	    logger.info("All users -> {}" ,  personJpaRepository.findAll());
 	    logger.info("Updating 10001 -> {}" , 
 	    		personJpaRepository.update(new Person(10001, "Anik", "Canada", new Date())));
-	   // logger.info("All users -> {}" ,  personJdbcDao.findAll());
+	    logger.info("All users -> {}" ,  personJpaRepository.findAll());
 	}
 }

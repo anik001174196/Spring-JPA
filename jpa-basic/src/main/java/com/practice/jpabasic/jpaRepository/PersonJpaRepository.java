@@ -19,4 +19,12 @@ public class PersonJpaRepository {
 	public Person findById(int id) {
 		return entity.find(Person.class, id);
 	}
+	
+	public Person update(Person person) {
+		return entity.merge(person);
+	}
+		
+	public Person insert(Person person) {
+		return entity.merge(person);
+	}
 }

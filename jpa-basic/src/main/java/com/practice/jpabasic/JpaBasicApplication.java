@@ -27,6 +27,7 @@ public class JpaBasicApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		logger.info("All users -> {}" ,  personJdbcDao.findAll());
+		logger.info("User Id 10002 -> {}" ,  personJdbcDao.findById(10002));
 	//	personJdbcDao.findAll();
 	}
 }

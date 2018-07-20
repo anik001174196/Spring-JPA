@@ -28,6 +28,8 @@ public class JpaBasicApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		logger.info("All users -> {}" ,  personJdbcDao.findAll());
 		logger.info("User Id 10002 -> {}" ,  personJdbcDao.findById(10002));
+		logger.info(" Deleting 10002 ,Number of rows deleted -> {}" ,  personJdbcDao.deleteById(10002));
+		logger.info("All users -> {}" ,  personJdbcDao.findAll());
 	//	personJdbcDao.findAll();
 	}
 }

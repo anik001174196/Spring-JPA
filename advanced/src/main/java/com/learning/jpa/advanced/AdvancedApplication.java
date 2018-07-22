@@ -29,5 +29,6 @@ public class AdvancedApplication implements CommandLineRunner{
 		logger.info("Course 10001 -> {}", course);
 		courseRepository.save(new Course(10002L, "Anik Saha John"));
 	//	courseRepository.deleteById(10001L);
+		courseRepository.playWithEntityManager();
 	}
 }

@@ -36,11 +36,23 @@ public class CourseRepository {
 
 	
 	public void playWithEntityManager() {
-		Course course =  new Course("Anik Saha/s Book");
-		entityManager.persist(course);
+		Course course1 =  new Course("Anik Saha/s Book");
+		entityManager.persist(course1);
+		entityManager.flush(); // all the changes upto this line will go to database,
+		                       //it will not wait till the end of function
 		
 		// this line with executes and changes wil save into database because of the 
 		// @Transactional annotaion entityManager checks the entire function and update database
-		course.setName("John's Book");
+		
+		
+		Course course2 =  new Course("Anik Saha/s Book");
+		entityManager.persist(course2);
+		entityManager.flush();
+		entityManager.detach(course2); // after this any update to course2 will not work
+		course2.setName("John's Book");
+		entityManager.flush();
+		
+		course1.setName("John's Book");
+		entityManager.flush();
 	}
 }

@@ -49,6 +49,8 @@ public class CourseRepository {
 		entityManager.persist(course2);
 		entityManager.flush();
 		entityManager.detach(course2); // after this any update to course2 will not work
+		
+		entityManager.clear(); // nothing will be tracked or changed in database after the line is executed
 		course2.setName("John's Book");
 		entityManager.flush();
 		

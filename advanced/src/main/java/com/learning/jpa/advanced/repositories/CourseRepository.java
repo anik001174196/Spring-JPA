@@ -34,4 +34,13 @@ public class CourseRepository {
 		return course;
 	}
 
+	
+	public void playWithEntityManager() {
+		Course course =  new Course("Anik Saha/s Book");
+		entityManager.persist(course);
+		
+		// this line with executes and changes wil save into database because of the 
+		// @Transactional annotaion entityManager checks the entire function and update database
+		course.setName("John's Book");
+	}
 }

@@ -23,5 +23,15 @@ public class CourseRepository {
 		Course course =  findById(id);
 		entityManager.remove(course);
 	}
+	
+	public Course save(Course course) {
+		if (course.getId() ==  null) {
+			entityManager.persist(course);
+		} else {
+			entityManager.merge(course);
+		}
+		
+		return course;
+	}
 
 }

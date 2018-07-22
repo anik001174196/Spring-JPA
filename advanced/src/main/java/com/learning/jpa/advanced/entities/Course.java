@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Course {
 	@Id
 	@GeneratedValue // jpa will generate the value
-	private long id;
+	private Long id;
 
 	private String name;
 
@@ -18,6 +18,16 @@ public class Course {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
+	public Course(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+
+
 	// id is auto generated , so we don't need to put id as constructor
 	public Course(String name) {
 		super();
@@ -25,7 +35,7 @@ public class Course {
 	}
 
 	// we donot need setID , as id is auto generated
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

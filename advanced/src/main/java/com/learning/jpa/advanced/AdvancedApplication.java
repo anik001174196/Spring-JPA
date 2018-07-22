@@ -27,7 +27,7 @@ public class AdvancedApplication implements CommandLineRunner{
 		// TODO Auto-generated method stub
 		Course course = courseRepository.findById(10001L);
 		logger.info("Course 10001 -> {}", course);
-		
+		courseRepository.save(new Course(10002L, "Anik Saha John"));
 	//	courseRepository.deleteById(10001L);
 	}
 }

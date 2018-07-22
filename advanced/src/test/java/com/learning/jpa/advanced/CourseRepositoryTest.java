@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.learning.jpa.advanced.entities.Course;
@@ -31,9 +32,23 @@ public class CourseRepositoryTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void deleteByID_basicTest() {
 		courseRepository.deleteById(10001L);
 		assertNull(courseRepository.findById(10001L));
+		
+	}
+	
+	@Test
+	@DirtiesContext// this ensures unit test actually does not delete the data
+	public void saveByID_basicTest() {
+		Course course = courseRepository.findById(10001L);
+		assertEquals("JPA in 50 steps", course.getName());
+		course.setName("New Jpa 50 starps");
+		courseRepository.save(course);
+		Course course1 = courseRepository.findById(10001L);
+		assertEquals("New Jpa 50 starps", course1.getName());
+		
 		
 	}
 

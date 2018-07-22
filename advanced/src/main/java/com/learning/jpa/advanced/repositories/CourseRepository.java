@@ -52,9 +52,11 @@ public class CourseRepository {
 		
 		entityManager.clear(); // nothing will be tracked or changed in database after the line is executed
 		course2.setName("John's Book");
-		entityManager.flush();
+		course1.setName("Abcd John's Book");
 		
-		course1.setName("John's Book");
+		// entity manager gets the value from database for course 1  and 
+		// course1.setName("Abcd John's Book"); will not execute
+		entityManager.refresh(course1);
 		entityManager.flush();
 	}
 }

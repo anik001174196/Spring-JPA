@@ -35,6 +35,14 @@ public class CourseRepository {
 	}
 
 	
+	
+	public void playWithHIbernateTable() {
+		Course course = findById(10001L);
+		course.setName("Ami Jani na");
+		entityManager.persist(course);
+		
+	}
+	
 	public void playWithEntityManager() {
 		Course course1 =  new Course("Anik Saha/s Book");
 		entityManager.persist(course1);

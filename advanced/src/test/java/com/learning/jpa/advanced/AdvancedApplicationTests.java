@@ -28,7 +28,7 @@ public class AdvancedApplicationTests {
 	
 	@Test
 	public void jpqlBasics() {
-		Query query = entityManager.createQuery("Select c from Course c ");
+		Query query = entityManager.createNamedQuery("get_all_courses");
 		List resultList = query.getResultList();
 		logger.info("Select c from course c --> {}", resultList);
 		
@@ -36,8 +36,8 @@ public class AdvancedApplicationTests {
 	
 	@Test
 	public void jpql_Typed() {
-		 String qlString = "Select c from Course c ";
-		TypedQuery<Course> createQuery = entityManager.createQuery(qlString, Course.class);
+		 String qlString = "get_all_courses";
+		TypedQuery<Course> createQuery = entityManager.createNamedQuery(qlString, Course.class);
 		List<Course> resultList = createQuery.getResultList();
 		logger.info("Select c from course c --> {}", resultList);
 		
@@ -45,8 +45,8 @@ public class AdvancedApplicationTests {
 	
 	@Test
 	public void jpql_where() {
-		String qlString = "Select c from Course c where name like '%50%'";
-		TypedQuery<Course> createQuery = entityManager.createQuery(qlString, Course.class);
+		String qlString = "get_50_courses";
+		TypedQuery<Course> createQuery = entityManager.createNamedQuery(qlString, Course.class);
 		List<Course> resultList = createQuery.getResultList();
 		logger.info("Select c from course c --> {}", resultList);
 		

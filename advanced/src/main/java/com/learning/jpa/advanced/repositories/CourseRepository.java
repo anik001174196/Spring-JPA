@@ -56,7 +56,7 @@ public class CourseRepository {
 		
 		// entity manager gets the value from database for course 1  and 
 		// course1.setName("Abcd John's Book"); will not execute
-		entityManager.refresh(course1);
-		entityManager.flush();
+		//entityManager.refresh(course1);
+		//entityManager.flush();
 	}
 }

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Student {
@@ -14,16 +15,20 @@ public class Student {
 
 	@Column(nullable = false)
 	private String name;
+	
+	@OneToOne
+	private Passport passport;
 
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(long id, String name) {
+	public Student(long id, String name, Passport passport) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.passport = passport;
 	}
 
 	public long getId() {
@@ -42,9 +47,18 @@ public class Student {
 		this.name = name;
 	}
 
+	
+	public Passport getPassport() {
+		return passport;
+	}
+
+	public void setPassport(Passport passport) {
+		this.passport = passport;
+	}
+
 	@Override
 	public String toString() {
-		return "Student [name=" + name + "]";
+		return "Student [id=" + id + ", name=" + name + ", passport=" + passport + "]";
 	}
 
 	

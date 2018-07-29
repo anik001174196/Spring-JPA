@@ -11,7 +11,7 @@ public class Student {
 
 	@Id
 	@GeneratedValue
-	private long id;
+	private Long id;
 
 	@Column(nullable = false)
 	private String name;
@@ -24,18 +24,18 @@ public class Student {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(long id, String name, Passport passport) {
+	public Student( String name, Passport passport) {
 		super();
-		this.id = id;
+		
 		this.name = name;
 		this.passport = passport;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -7,14 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.learning.jpa.advanced.entities.Course;
 import com.learning.jpa.advanced.repositories.CourseRepository;
+import com.learning.jpa.advanced.repositories.StudentRepository;
 
 @SpringBootApplication
 public class AdvancedApplication implements CommandLineRunner{
 
 	@Autowired
 	private CourseRepository courseRepository;
+	
+	@Autowired
+	private StudentRepository studentRepository;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -25,10 +28,6 @@ public class AdvancedApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		Course course = courseRepository.findById(10001L);
-		logger.info("Course 10001 -> {}", course);
-		courseRepository.save(new Course(10002L, "Anik Saha John"));
-	//	courseRepository.deleteById(10001L);
-		courseRepository.playWithHIbernateTable();
+		studentRepository.saveStudentWithPassport();
 	}
 }

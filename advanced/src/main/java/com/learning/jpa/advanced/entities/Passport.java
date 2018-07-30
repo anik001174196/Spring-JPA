@@ -61,7 +61,7 @@ public class Passport {
 
 	@Override
 	public String toString() {
-		return "Passport [id=" + id + ", number=" + number + ", student=" + student + "]";
+		return "Passport [id=" + id + ", number=" + number + "]";
 	}
 
 }

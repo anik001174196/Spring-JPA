@@ -37,6 +37,16 @@ public class StudetRepositoryTest {
 		logger.info("student -> {}", student);
 		logger.info("passport -> {}", student.getPassport());
 	}
+	
+	@Test
+	@Transactional // as the class is lazy loaded so if we do not use this
+	// then student.getPassport() will throw an error because data will be
+	// automatically grabbed without this
+	public void findPassportInfoWithStudent_basicTest() {
+		Passport passport = entityManager.find(Passport.class, 40001L);
+		logger.info("passport -> {}", passport);
+		logger.info("student -> {}", passport.getStudent());
+	}
 
 	@Test
 	@Transactional

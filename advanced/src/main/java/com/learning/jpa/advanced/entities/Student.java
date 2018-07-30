@@ -2,6 +2,7 @@ package com.learning.jpa.advanced.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -16,7 +17,9 @@ public class Student {
 	@Column(nullable = false)
 	private String name;
 	
-	@OneToOne
+	// this makes only to retrieve student class
+	// it will retrieve passport class when it is called
+	@OneToOne(fetch=FetchType.LAZY)
 	private Passport passport;
 
 	public Student() {

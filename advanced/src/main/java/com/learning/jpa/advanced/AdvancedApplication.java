@@ -39,5 +39,9 @@ public class AdvancedApplication implements CommandLineRunner{
 		reviews.add(new Review("5", "Liked it very much"));
 		
 		courseRepository.addReviewForACourse(10002L, reviews);
+		
+		
+		
+		studentRepository.insertHardCodedStudentAndCourse();
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.learning.jpa.advanced.entities.Course;
 import com.learning.jpa.advanced.entities.Passport;
 import com.learning.jpa.advanced.entities.Student;
 
@@ -47,5 +48,18 @@ public class StudentRepository {
 		entityManager.persist(student);
 	}
 	
+	
+	public void insertHardCodedStudentAndCourse() {
+		Student student = new Student("Jack");
+		Course course = new Course("Angular 6 finally");
+		
+		entityManager.persist(student);
+		entityManager.persist(course);
+		student.addCourses(course);
+		course.addStudents(student);
+		// persisit the owing side
+		entityManager.persist(student);
+		
+	}
 	
 }

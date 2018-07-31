@@ -1,5 +1,6 @@
 package com.learning.jpa.advanced;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.learning.jpa.advanced.entities.FullTimeEmployee;
+import com.learning.jpa.advanced.entities.PartTimeEmployee;
 import com.learning.jpa.advanced.entities.Review;
 import com.learning.jpa.advanced.repositories.CourseRepository;
+import com.learning.jpa.advanced.repositories.EmployeeRepository;
 import com.learning.jpa.advanced.repositories.StudentRepository;
 
 @SpringBootApplication
@@ -22,6 +26,9 @@ public class AdvancedApplication implements CommandLineRunner{
 	
 	@Autowired
 	private StudentRepository studentRepository;
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -43,5 +50,18 @@ public class AdvancedApplication implements CommandLineRunner{
 		
 		
 		studentRepository.insertHardCodedStudentAndCourse();
+		
+		
+		
+		employeeRepositoryStuff();
+	}
+	
+	
+	public void employeeRepositoryStuff() {
+		
+		employeeRepository.insert(new PartTimeEmployee("Jack", new BigDecimal("50")));
+		employeeRepository.insert(new FullTimeEmployee("Jill", new BigDecimal("10000")));
+		
+		logger.info("All Employess --> {}", employeeRepository.retrieveAllEmployess());
 	}
 }

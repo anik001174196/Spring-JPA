@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -20,24 +22,26 @@ public class Student {
 
 	@Column(nullable = false)
 	private String name;
-	
+
 	// this makes only to retrieve student class
 	// it will retrieve passport class when it is called
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Passport passport;
-	
+
 	@ManyToMany
-    private List<Course> courses = new ArrayList<Course>();
-   
+	@JoinTable(name = "STUDENT_COURSE", 
+	           joinColumns = @JoinColumn(name = "STUDENT_ID"), 
+	           inverseJoinColumns = @JoinColumn(name = "COURSE_ID"))
+	private List<Course> courses = new ArrayList<Course>();
 
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student( String name, Passport passport) {
+	public Student(String name, Passport passport) {
 		super();
-		
+
 		this.name = name;
 		this.passport = passport;
 	}
@@ -58,7 +62,6 @@ public class Student {
 		this.name = name;
 	}
 
-	
 	public Passport getPassport() {
 		return passport;
 	}
@@ -67,8 +70,6 @@ public class Student {
 		this.passport = passport;
 	}
 
-	
-	
 	public List<Course> getCourses() {
 		return courses;
 	}
@@ -76,17 +77,14 @@ public class Student {
 	public void addCourses(Course course) {
 		this.courses.add(course);
 	}
-	
+
 	public void removeCourses(Course course) {
 		this.courses.remove(course);
 	}
-	
-	
 
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name + "]";
 	}
 
-	
 }

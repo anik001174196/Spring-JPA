@@ -39,6 +39,8 @@ public class Course {
 	
 	// eager works with left outer join
 	// lazy just works with just one table
+	// one/ Many To One default eager fetching
+	// one/Many to Many default lazy fetching
    @OneToMany( mappedBy="course", fetch=FetchType.EAGER)
 	private List<Review> reviews = new ArrayList<Review>();
 	

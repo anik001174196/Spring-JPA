@@ -46,6 +46,11 @@ public class Student {
 		this.passport = passport;
 	}
 
+	public Student(String name) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+	}
+
 	public Long getId() {
 		return id;
 	}

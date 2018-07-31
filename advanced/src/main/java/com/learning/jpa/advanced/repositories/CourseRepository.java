@@ -1,5 +1,7 @@
 package com.learning.jpa.advanced.repositories;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
@@ -80,13 +82,28 @@ public class CourseRepository {
 		Review review1 = new Review("5", "Great hands of stuff");
 		Review review2 = new Review("5", "Liked it very much");
 		
-		course.addReview(review1);
+		//course.addReview(review1);
 		review1.setCourse(course);
-		course.addReview(review2);
+		//course.addReview(review2);
 		review2.setCourse(course);
 		
 		entityManager.persist(review1);
 		entityManager.persist(review2);
+		
+	}
+	
+	
+	public void addReviewForACourse(Long courseId, List<Review> reviews) {
+		Course course = findById(courseId);
+		logger.info("course.getReview --> {}",course.getReviews());
+		
+		
+		
+		for(Review review: reviews) {
+			review.setCourse(course);
+			entityManager.persist(review);
+		}
+		
 		
 	}
 }

@@ -29,5 +29,6 @@ public class AdvancedApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		studentRepository.saveStudentWithPassport();
+		courseRepository.addReviewForCourse();
 	}
 }

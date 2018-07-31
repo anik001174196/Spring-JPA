@@ -2,11 +2,14 @@ package com.learning.jpa.advanced.repositories;
 
 import javax.persistence.EntityManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.learning.jpa.advanced.entities.Course;
+import com.learning.jpa.advanced.entities.Review;
 
 @Repository
 @Transactional // if there is a change in database then this beans need to be added
@@ -14,6 +17,8 @@ public class CourseRepository {
 	
 	@Autowired
 	private EntityManager entityManager;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public Course findById(long id) {
 		return entityManager.find(Course.class, id);
@@ -66,5 +71,22 @@ public class CourseRepository {
 		// course1.setName("Abcd John's Book"); will not execute
 		//entityManager.refresh(course1);
 		//entityManager.flush();
+	}
+	
+	public void addReviewForCourse() {
+		Course course = findById(10003L);
+		logger.info("course.getReview --> {}",course.getReviews());
+		
+		Review review1 = new Review("5", "Great hands of stuff");
+		Review review2 = new Review("5", "Liked it very much");
+		
+		course.addReview(review1);
+		review1.setCourse(course);
+		course.addReview(review2);
+		review2.setCourse(course);
+		
+		entityManager.persist(review1);
+		entityManager.persist(review2);
+		
 	}
 }

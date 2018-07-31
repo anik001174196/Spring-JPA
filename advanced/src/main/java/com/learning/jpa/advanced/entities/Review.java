@@ -68,6 +68,16 @@ public class Review {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 
 	@Override
 	public String toString() {

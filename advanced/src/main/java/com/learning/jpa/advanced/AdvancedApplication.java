@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.learning.jpa.advanced.entities.Course;
 import com.learning.jpa.advanced.entities.FullTimeEmployee;
 import com.learning.jpa.advanced.entities.PartTimeEmployee;
 import com.learning.jpa.advanced.entities.Review;
@@ -29,6 +33,9 @@ public class AdvancedApplication implements CommandLineRunner {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private EntityManager em;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -39,12 +46,35 @@ public class AdvancedApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-
-		
+	//	jpql_coursesWithoutStudens();
+		//jpql_coursesWith_Atleast2Studens();
+		jpql_coursesOrderByStudens();
 		//addReviewForACourse();
 	//	insertHardCodedStudentAndCourse();
 	//	employeeRepositoryStuff();
 	}
+	
+	
+	public void jpql_coursesWith_Atleast2Studens () {
+		TypedQuery<Course> query = em.createQuery("select c from Course c where size(c.students) >= 2", Course.class);
+		List<Course> resultList = query.getResultList();
+		logger.info("result -> {}", resultList);
+	}
+	
+	public void jpql_coursesOrderByStudens () {
+		TypedQuery<Course> query = em.createQuery("select c from Course c order by  size(c.students) desc", Course.class);
+		List<Course> resultList = query.getResultList();
+		logger.info("result -> {}", resultList);
+	}
+	
+	
+	public void jpql_coursesWithoutStudens() {
+		TypedQuery<Course> query = em.createQuery("select c from Course c where c.students is empty", Course.class);
+		List<Course> resultList = query.getResultList();
+		logger.info("result -> {}", resultList);
+	}
+	
+	
 
 	public void addReviewForACourse() {
 		studentRepository.saveStudentWithPassport();

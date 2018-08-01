@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.learning.jpa.advanced.entities.Employee;
+import com.learning.jpa.advanced.entities.FullTimeEmployee;
+import com.learning.jpa.advanced.entities.PartTimeEmployee;
 
 @Repository
 @Transactional 
@@ -27,7 +29,11 @@ public class EmployeeRepository {
 	}
 
 	
-	public List<Employee> retrieveAllEmployess() {
-		return entityManager.createQuery("Select e from Employee e", Employee.class).getResultList();
+	public List<PartTimeEmployee> retrievePartTimeAllEmployess() {
+		return entityManager.createQuery("Select e from PartTimeEmployee e", PartTimeEmployee.class).getResultList();
+	}
+	
+	public List<FullTimeEmployee> retrieveFullTimeAllEmployess() {
+		return entityManager.createQuery("Select e from FullTimeEmployee e", FullTimeEmployee.class).getResultList();
 	}
 }

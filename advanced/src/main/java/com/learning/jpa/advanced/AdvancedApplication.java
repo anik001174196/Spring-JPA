@@ -62,6 +62,7 @@ public class AdvancedApplication implements CommandLineRunner{
 		employeeRepository.insert(new PartTimeEmployee("Jack", new BigDecimal("50")));
 		employeeRepository.insert(new FullTimeEmployee("Jill", new BigDecimal("10000")));
 		
-		logger.info("All Employess --> {}", employeeRepository.retrieveAllEmployess());
+		logger.info("All Full Time Employess --> {}", employeeRepository.retrieveFullTimeAllEmployess());
+		logger.info("All Part Time Employess --> {}", employeeRepository.retrievePartTimeAllEmployess());
 	}
 }

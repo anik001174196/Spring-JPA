@@ -19,19 +19,19 @@ import com.learning.jpa.advanced.repositories.EmployeeRepository;
 import com.learning.jpa.advanced.repositories.StudentRepository;
 
 @SpringBootApplication
-public class AdvancedApplication implements CommandLineRunner{
+public class AdvancedApplication implements CommandLineRunner {
 
 	@Autowired
 	private CourseRepository courseRepository;
-	
+
 	@Autowired
 	private StudentRepository studentRepository;
-	
+
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(AdvancedApplication.class, args);
 	}
@@ -39,29 +39,32 @@ public class AdvancedApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		studentRepository.saveStudentWithPassport();
+
 		
+		//addReviewForACourse();
+	//	insertHardCodedStudentAndCourse();
+	//	employeeRepositoryStuff();
+	}
+
+	public void addReviewForACourse() {
+		studentRepository.saveStudentWithPassport();
+
 		List<Review> reviews = new ArrayList<Review>();
 		reviews.add(new Review("5", "Great hands of stuff"));
 		reviews.add(new Review("5", "Liked it very much"));
-		
+
 		courseRepository.addReviewForACourse(10002L, reviews);
-		
-		
-		
-		studentRepository.insertHardCodedStudentAndCourse();
-		
-		
-		
-		employeeRepositoryStuff();
 	}
-	
-	
+
+	public void insertHardCodedStudentAndCourse() {
+		studentRepository.insertHardCodedStudentAndCourse();
+	}
+
 	public void employeeRepositoryStuff() {
-		
+
 		employeeRepository.insert(new PartTimeEmployee("Jack", new BigDecimal("50")));
 		employeeRepository.insert(new FullTimeEmployee("Jill", new BigDecimal("10000")));
-		
+
 		logger.info("All Full Time Employess --> {}", employeeRepository.retrieveFullTimeAllEmployess());
 		logger.info("All Part Time Employess --> {}", employeeRepository.retrievePartTimeAllEmployess());
 	}

@@ -63,6 +63,22 @@ public class AdvancedApplication implements CommandLineRunner {
 		//criteriaQuery_basic();
 		criteriaQuery_CoursesHavinf100Steps();
 	}
+	
+	
+	
+	public void criteriaQuery_CoursesWithoutStudents() {
+
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Course> cq = cb.createQuery(Course.class);
+
+		Root<Course> courseRoot = cq.from(Course.class);
+		Predicate studentsIsEmpty = cb.isEmpty(courseRoot.get("students"));
+		cq.where(studentsIsEmpty);
+
+		TypedQuery<Course> query = em.createQuery(cq.select(courseRoot));
+		List<Course> resultList = query.getResultList();
+		logger.info("Criteria Query -> {}", resultList);
+	}
 
 	public void criteriaQuery_CoursesHavinf100Steps() {
 

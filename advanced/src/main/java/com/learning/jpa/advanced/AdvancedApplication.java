@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
@@ -49,12 +50,29 @@ public class AdvancedApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 	//	jpql_coursesWithoutStudens();
 		//jpql_coursesWith_Atleast2Studens();
-		jpql_coursesOrderByStudens();
-		jpql_studentWithPassportAtACertainPattern();
+		//jpql_coursesOrderByStudens();
+		//jpql_studentWithPassportAtACertainPattern();
 		//addReviewForACourse();
 	//	insertHardCodedStudentAndCourse();
 	//	employeeRepositoryStuff();
+		join();
 	}
+	
+	
+	// JOIN ==> "Select c, s from Course  c JOIN c.students s"
+	//LEFT JOIN =>  "Select c, s from Course  c LEFT JOIN c.students s"
+	//CROSS JOIN =>  "Select c, s from Course c, Students s"
+
+	public void join() {
+		Query query = em.createQuery("Select c, s from Course  c LEFT JOIN c.students s");
+		List<Object[]> resultList = query.getResultList();
+		logger.info("result -> {}", resultList);
+		
+		for(Object[] result: resultList) {
+			logger.info("Course {} , student {}", result[0], result[1]);
+		}
+	}
+	
 	
 	public void jpql_studentWithPassportAtACertainPattern () {
 		TypedQuery<Student> query = em.createQuery("select s from Student s where s.passport.number like '%123%'", Student.class);

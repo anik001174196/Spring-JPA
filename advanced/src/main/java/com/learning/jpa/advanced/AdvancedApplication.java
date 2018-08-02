@@ -7,6 +7,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,8 +58,27 @@ public class AdvancedApplication implements CommandLineRunner {
 		//addReviewForACourse();
 	//	insertHardCodedStudentAndCourse();
 	//	employeeRepositoryStuff();
-		join();
+	//	join();
+		criteriaQuery_basic();
 	}
+	
+	
+	
+	public void criteriaQuery_basic () {
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Course> cq = cb.createQuery(Course.class);
+		
+		
+		Root<Course> courseRoot = cq.from(Course.class);
+		
+		
+		TypedQuery<Course> query = em.createQuery(cq.select(courseRoot));
+		List<Course> resultList = query.getResultList();
+		logger.info("Typed Query -> {}", resultList);
+	}
+	
+	
 	
 	
 	// JOIN ==> "Select c, s from Course  c JOIN c.students s"

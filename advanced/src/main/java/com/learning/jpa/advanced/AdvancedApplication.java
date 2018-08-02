@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class AdvancedApplication implements CommandLineRunner {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	@Autowired
 	private EntityManager em;
 
@@ -51,78 +52,83 @@ public class AdvancedApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-	//	jpql_coursesWithoutStudens();
-		//jpql_coursesWith_Atleast2Studens();
-		//jpql_coursesOrderByStudens();
-		//jpql_studentWithPassportAtACertainPattern();
-		//addReviewForACourse();
-	//	insertHardCodedStudentAndCourse();
-	//	employeeRepositoryStuff();
-	//	join();
-		criteriaQuery_basic();
+		// jpql_coursesWithoutStudens();
+		// jpql_coursesWith_Atleast2Studens();
+		// jpql_coursesOrderByStudens();
+		// jpql_studentWithPassportAtACertainPattern();
+		// addReviewForACourse();
+		// insertHardCodedStudentAndCourse();
+		// employeeRepositoryStuff();
+		// join();
+		//criteriaQuery_basic();
+		criteriaQuery_CoursesHavinf100Steps();
 	}
-	
-	
-	
-	public void criteriaQuery_basic () {
-		
+
+	public void criteriaQuery_CoursesHavinf100Steps() {
+
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Course> cq = cb.createQuery(Course.class);
-		
-		
+
 		Root<Course> courseRoot = cq.from(Course.class);
-		
-		
+		Predicate like = cb.like(courseRoot.get("name"), "%50%");
+		cq.where(like);
+
 		TypedQuery<Course> query = em.createQuery(cq.select(courseRoot));
 		List<Course> resultList = query.getResultList();
-		logger.info("Typed Query -> {}", resultList);
+		logger.info("Criteria Query -> {}", resultList);
 	}
-	
-	
-	
-	
-	// JOIN ==> "Select c, s from Course  c JOIN c.students s"
-	//LEFT JOIN =>  "Select c, s from Course  c LEFT JOIN c.students s"
-	//CROSS JOIN =>  "Select c, s from Course c, Students s"
+
+	public void criteriaQuery_basic() {
+
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Course> cq = cb.createQuery(Course.class);
+
+		Root<Course> courseRoot = cq.from(Course.class);
+
+		TypedQuery<Course> query = em.createQuery(cq.select(courseRoot));
+		List<Course> resultList = query.getResultList();
+		logger.info("Criteria Query -> {}", resultList);
+	}
+
+	// JOIN ==> "Select c, s from Course c JOIN c.students s"
+	// LEFT JOIN => "Select c, s from Course c LEFT JOIN c.students s"
+	// CROSS JOIN => "Select c, s from Course c, Students s"
 
 	public void join() {
 		Query query = em.createQuery("Select c, s from Course  c LEFT JOIN c.students s");
 		List<Object[]> resultList = query.getResultList();
 		logger.info("result -> {}", resultList);
-		
-		for(Object[] result: resultList) {
+
+		for (Object[] result : resultList) {
 			logger.info("Course {} , student {}", result[0], result[1]);
 		}
 	}
-	
-	
-	public void jpql_studentWithPassportAtACertainPattern () {
-		TypedQuery<Student> query = em.createQuery("select s from Student s where s.passport.number like '%123%'", Student.class);
+
+	public void jpql_studentWithPassportAtACertainPattern() {
+		TypedQuery<Student> query = em.createQuery("select s from Student s where s.passport.number like '%123%'",
+				Student.class);
 		List<Student> resultList = query.getResultList();
 		logger.info("result -> {}", resultList);
 	}
-	
-	
-	public void jpql_coursesWith_Atleast2Studens () {
+
+	public void jpql_coursesWith_Atleast2Studens() {
 		TypedQuery<Course> query = em.createQuery("select c from Course c where size(c.students) >= 2", Course.class);
 		List<Course> resultList = query.getResultList();
 		logger.info("result -> {}", resultList);
 	}
-	
-	public void jpql_coursesOrderByStudens () {
-		TypedQuery<Course> query = em.createQuery("select c from Course c order by  size(c.students) desc", Course.class);
+
+	public void jpql_coursesOrderByStudens() {
+		TypedQuery<Course> query = em.createQuery("select c from Course c order by  size(c.students) desc",
+				Course.class);
 		List<Course> resultList = query.getResultList();
 		logger.info("result -> {}", resultList);
 	}
-	
-	
+
 	public void jpql_coursesWithoutStudens() {
 		TypedQuery<Course> query = em.createQuery("select c from Course c where c.students is empty", Course.class);
 		List<Course> resultList = query.getResultList();
 		logger.info("result -> {}", resultList);
 	}
-	
-	
 
 	public void addReviewForACourse() {
 		studentRepository.saveStudentWithPassport();

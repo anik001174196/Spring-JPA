@@ -9,6 +9,8 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -61,9 +63,27 @@ public class AdvancedApplication implements CommandLineRunner {
 		// employeeRepositoryStuff();
 		// join();
 		//criteriaQuery_basic();
-		criteriaQuery_CoursesHavinf100Steps();
+		//criteriaQuery_CoursesWithoutStudents();
+		criteriaQuery_join();
 	}
 	
+	
+	
+	
+	public void criteriaQuery_join() {
+
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Course> cq = cb.createQuery(Course.class);
+
+		Root<Course> courseRoot = cq.from(Course.class);
+	//	Join<Object, Object> join = courseRoot.join("students");
+		Join<Object, Object> join = courseRoot.join("students", JoinType.LEFT);
+	//	cq.where(studentsIsEmpty);
+
+		TypedQuery<Course> query = em.createQuery(cq.select(courseRoot));
+		List<Course> resultList = query.getResultList();
+		logger.info("Criteria Query -> {}", resultList);
+	}
 	
 	
 	public void criteriaQuery_CoursesWithoutStudents() {

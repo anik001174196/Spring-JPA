@@ -3,7 +3,7 @@ insert into course(id, fullname, last_updated_date, created_date)  values (10002
 insert into course(id, fullname, last_updated_date, created_date)  values (10003, 'Microservices in 50 steps', sysdate(), sysdate());
 
 insert into passport(id, number) values(40001, 'AA1234');
-insert into passport(id, number) values(40002, 'FD2345');
+insert into passport(id, number) values(40002, 'FD12345');
 insert into passport(id, number) values(40003, 'GT2423');
 
 

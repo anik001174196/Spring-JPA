@@ -18,6 +18,7 @@ import com.learning.jpa.advanced.entities.Course;
 import com.learning.jpa.advanced.entities.FullTimeEmployee;
 import com.learning.jpa.advanced.entities.PartTimeEmployee;
 import com.learning.jpa.advanced.entities.Review;
+import com.learning.jpa.advanced.entities.Student;
 import com.learning.jpa.advanced.repositories.CourseRepository;
 import com.learning.jpa.advanced.repositories.EmployeeRepository;
 import com.learning.jpa.advanced.repositories.StudentRepository;
@@ -49,9 +50,16 @@ public class AdvancedApplication implements CommandLineRunner {
 	//	jpql_coursesWithoutStudens();
 		//jpql_coursesWith_Atleast2Studens();
 		jpql_coursesOrderByStudens();
+		jpql_studentWithPassportAtACertainPattern();
 		//addReviewForACourse();
 	//	insertHardCodedStudentAndCourse();
 	//	employeeRepositoryStuff();
+	}
+	
+	public void jpql_studentWithPassportAtACertainPattern () {
+		TypedQuery<Student> query = em.createQuery("select s from Student s where s.passport.number like '%123%'", Student.class);
+		List<Student> resultList = query.getResultList();
+		logger.info("result -> {}", resultList);
 	}
 	
 	
